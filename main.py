@@ -42,3 +42,31 @@ r2 = r2_score(y_test, y_pred)
 st.write(f'MSE: {mse}')
 st.write(f'RMSE: {rmse}')
 st.write(f'R^2: {r2}')
+
+# Grafic de dispersie
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=y_test, y=y_pred)
+plt.xlabel('Valori Reale')
+plt.ylabel('Valori Prezise')
+plt.title('Comparare Valori Reale vs. Prezise')
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', lw=3)  # Linie ideală
+plt.show()
+
+# Grafic de linii pentru o comparație directă
+plt.figure(figsize=(12, 6))
+plt.plot(y_test.reset_index(drop=True), label='Valori Reale', color='blue', lw=2)
+plt.plot(y_pred, label='Valori Prezise', color='green', lw=2)
+plt.title('Comparare Valori Reale vs. Prezise în Timp')
+plt.xlabel('Indexul Datelor de Testare')
+plt.ylabel('Consumul de Carburant')
+plt.legend()
+plt.show()
+
+# Histogram of Residuals
+residuals = y_test - y_pred
+plt.figure(figsize=(10, 6))
+sns.histplot(residuals, bins=20, kde=True)
+plt.title('Histogram of Prediction Residuals')
+plt.xlabel('Residuals')
+plt.ylabel('Frequency')
+plt.show()
